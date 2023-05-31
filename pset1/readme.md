@@ -20,3 +20,15 @@ O primeiro é um arquivo do SOL Power Architect com o modelo físico do banco de
 3. Acesse o diretório do script SQL: cd ./uvv.bd1_ccin/pset1.
 4. Execute o script passando o conteúdo do arquivo do script para o stdin do psql: psql -U postgres < cc1n_202307871_postgresql.sql.
 5. Digite a senha do usuário "postgres" do DBServer: computacao@raiz.
+
+## Executando o script:
+
+Para executar o script SQL e gerar as tabelas, siga as etapas abaixo:
+1. Certifique-se de que o PostgreSQL esteja instalado e em execução em sua máquina.
+2. Abra o terminal ou prompt de comando.
+3. Navegue até o diretório onde o arquivo "cc1n_202307883_postgresql.sql" está localizado.
+4. Execute o seguinte comando para executar o script SQL:
+
+```bash 
+   psql -U postgres < cc1n_202307883_postgresql.sql
+```

@@ -3,14 +3,14 @@
    Professor Abrantes - UVV
    Pedro Henrique dos Santos Amorim - CC1N
 */
-
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
  
            CRIAÇÃO DO BANCO DE DADOS, USUÁRIO E MODO DE CONEXÃO
 
-*/	
-	
+*/
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------	
 
 -- apaga o banco de dados "uvv" caso o mesmo exista
 DROP DATABASE IF EXISTS uvv
@@ -55,6 +55,7 @@ ALTER USER amorim
 SET SEARCH_PATH TO lojas, "$user", public
 ;
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /* 
 
@@ -79,15 +80,15 @@ CREATE TABLE lojas.produtos (
 );
 
 -- comentarios sobre a tabela produtos
-COMMENT ON TABLE  lojas.produtos IS 'nessa tabela se encontra informações sobre os produtos da loja';
-COMMENT ON COLUMN lojas.produtos.produto_id IS 'nessa coluna se encontra o id do produto';
-COMMENT ON COLUMN lojas.produtos.nome IS 'nessa coluna se encontra o nome do produto';
-COMMENT ON COLUMN lojas.produtos.preco_unitario IS 'nessa coluna se encontra o preço unitário do produto';
-COMMENT ON COLUMN lojas.produtos.detalhe IS 'nessa coluna se encontra os detalhes do produtor';
-COMMENT ON COLUMN lojas.produtos.imagem IS 'nessa coluna se encontra a imagem do produto';
-COMMENT ON COLUMN lojas.produtos.imagem_mime_type IS 'nessa coluna se encontra o mime type da imagem do produto';
-COMMENT ON COLUMN lojas.produtos.imagem_arquivo IS 'nessa coluna se encontra o arquivo da imagem do produto';
-COMMENT ON COLUMN lojas.produtos.imagem_charset IS 'nessa coluna se encontra o charset da imagem';
+COMMENT ON TABLE  lojas.produtos                           IS 'nessa tabela se encontra informações sobre os produtos da loja';
+COMMENT ON COLUMN lojas.produtos.produto_id                IS 'nessa coluna se encontra o id do produto';
+COMMENT ON COLUMN lojas.produtos.nome                      IS 'nessa coluna se encontra o nome do produto';
+COMMENT ON COLUMN lojas.produtos.preco_unitario            IS 'nessa coluna se encontra o preço unitário do produto';
+COMMENT ON COLUMN lojas.produtos.detalhe                   IS 'nessa coluna se encontra os detalhes do produtor';
+COMMENT ON COLUMN lojas.produtos.imagem                    IS 'nessa coluna se encontra a imagem do produto';
+COMMENT ON COLUMN lojas.produtos.imagem_mime_type          IS 'nessa coluna se encontra o mime type da imagem do produto';
+COMMENT ON COLUMN lojas.produtos.imagem_arquivo            IS 'nessa coluna se encontra o arquivo da imagem do produto';
+COMMENT ON COLUMN lojas.produtos.imagem_charset            IS 'nessa coluna se encontra o charset da imagem';
 COMMENT ON COLUMN lojas.produtos.imagem_ultima_atualizacao IS 'nessa coluna se encontra a última atualização da imagem do produto';
 
 

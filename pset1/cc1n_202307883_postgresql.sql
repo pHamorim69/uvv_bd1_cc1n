@@ -62,7 +62,8 @@ SET SEARCH_PATH TO lojas, "$user", public
 		   
 */		   
 
-------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- cria tabela produtos
 CREATE TABLE lojas.produtos (
@@ -76,6 +77,161 @@ CREATE TABLE lojas.produtos (
     imagem_charset            VARCHAR(512),
     imagem_ultima_atualizacao DATE
 );
+
+-- comentarios sobre a tabela produtos
+COMMENT ON TABLE  lojas.produtos IS 'nessa tabela se encontra informações sobre os produtos da loja';
+COMMENT ON COLUMN lojas.produtos.produto_id IS 'nessa coluna se encontra o id do produto';
+COMMENT ON COLUMN lojas.produtos.nome IS 'nessa coluna se encontra o nome do produto';
+COMMENT ON COLUMN lojas.produtos.preco_unitario IS 'nessa coluna se encontra o preço unitário do produto';
+COMMENT ON COLUMN lojas.produtos.detalhe IS 'nessa coluna se encontra os detalhes do produtor';
+COMMENT ON COLUMN lojas.produtos.imagem IS 'nessa coluna se encontra a imagem do produto';
+COMMENT ON COLUMN lojas.produtos.imagem_mime_type IS 'nessa coluna se encontra o mime type da imagem do produto';
+COMMENT ON COLUMN lojas.produtos.imagem_arquivo IS 'nessa coluna se encontra o arquivo da imagem do produto';
+COMMENT ON COLUMN lojas.produtos.imagem_charset IS 'nessa coluna se encontra o charset da imagem';
+COMMENT ON COLUMN lojas.produtos.imagem_ultima_atualizacao IS 'nessa coluna se encontra a última atualização da imagem do produto';
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- cria a tabela clientes
+CREATE TABLE lojas.clientes (
+    cliente_id                NUMERIC(38)  NOT NULL,
+    email                     VARCHAR(255) NOT NULL,
+    nome                      VARCHAR(255) NOT NULL,
+    telefone1                 VARCHAR(20),
+    telefone2                 VARCHAR(20),
+    telefone3                 VARCHAR(20)
+);
+
+-- comentarios sobre a tabela clientes
+COMMENT ON TABLE  lojas.clientes            IS 'nessa tabela se encontra as informações sobre os clientes da loja';
+COMMENT ON COLUMN lojas.clientes.cliente_id IS 'nessa coluna se encontra o id do cliente';
+COMMENT ON COLUMN lojas.clientes.email      IS 'nessa coluna se encontra o endereço de email do cliente';
+COMMENT ON COLUMN lojas.clientes.nome       IS 'nessa coluna se encontra o nome do cliente';
+COMMENT ON COLUMN lojas.clientes.telefone1  IS 'nessa coluna se encontra o telefone do cliente';
+COMMENT ON COLUMN lojas.clientes.telefone2  IS 'nessa coluna se encontra o segundo telefone do cliente caso o mesmo tenha';
+COMMENT ON COLUMN lojas.clientes.telefone3  IS 'nessa coluna se encontra o terceiro telefone do cliente caso o mesmo tenha';
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- cria a tabela lojas
+CREATE TABLE lojas.lojas (
+    loja_id                   NUMERIC(38)  NOT NULL,
+    nome                      VARCHAR(255) NOT NULL,
+    endereco_web              VARCHAR(100),
+    endereco_fisico           VARCHAR(512),
+    latitude                  NUMERIC,
+    longitude                 NUMERIC,
+    logo                      BYTEA,
+    logo_mime_type            VARCHAR(512),
+    logo_arquivo              VARCHAR(512),
+    logo_charset              VARCHAR(512),
+    logo_ultima_atualizacao   DATE
+);
+
+-- comentarios sobre a tabela lojas
+COMMENT ON TABLE  lojas.lojas                         IS 'nessa tabela se encontra informações sobre as lojas';
+COMMENT ON COLUMN lojas.lojas.loja_id                 IS 'nessa coluna se encontra o id da loja';
+COMMENT ON COLUMN lojas.lojas.nome                    IS 'nessa coluna se encontra o nome da loja';
+COMMENT ON COLUMN lojas.lojas.endereco_web            IS 'nessa coluna se encontra o endereço web da loja';
+COMMENT ON COLUMN lojas.lojas.endereco_fisico         IS 'nessa coluna se encontra o endereço físico da loja';
+COMMENT ON COLUMN lojas.lojas.latitude                IS 'nessa coluna se encontra a latitude da loja';
+COMMENT ON COLUMN lojas.lojas.longitude               IS 'nessa coluna se encontra a longitude da loja';
+COMMENT ON COLUMN lojas.lojas.logo                    IS 'nessa coluna se encontra o logo da loja';
+COMMENT ON COLUMN lojas.lojas.logo_mime_type          IS 'nessa coluna se encontra mime type do logo da loja';
+COMMENT ON COLUMN lojas.lojas.logo_arquivo            IS 'nessa coluna se encontra a localização do arquivo de logo da loja';
+COMMENT ON COLUMN lojas.lojas.logo_charset            IS 'nessa coluna se encontra o conjunto de caracteres utilizado no arquivo de logo da loja';
+COMMENT ON COLUMN lojas.lojas.logo_ultima_atualizacao IS 'nessa coluna se encontra a data da última atualização do arquivo de logo da loja';
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- cria a tabela pedidos
+CREATE TABLE lojas.pedidos (
+    pedido_id                 NUMERIC(38) NOT NULL,
+    data_hora                 TIMESTAMP   NOT NULL,
+    cliente_id                NUMERIC(38) NOT NULL,
+    status                    VARCHAR(15) NOT NULL,
+    loja_id                   NUMERIC(38) NOT NULL
+);
+
+-- comentarios sobre a tabela pedidos
+COMMENT ON TABLE  lojas.pedidos            IS 'esta tabela contém informações sobre os pedidos realizados';
+COMMENT ON COLUMN lojas.pedidos.pedido_id  IS 'nessa coluna se encontra o id do pedido';
+COMMENT ON COLUMN lojas.pedidos.data_hora  IS 'nessa coluna se encontra a data e a hora que o pedido foi realizado';
+COMMENT ON COLUMN lojas.pedidos.cliente_id IS 'nessa coluna se encontra o id do cliente que fez o pedido';
+COMMENT ON COLUMN lojas.pedidos.status     IS 'nessa coluna se encontra o status do pedido';
+COMMENT ON COLUMN lojas.pedidos.loja_id    IS 'nessa coluna se encontra o id da loja que o pedido foi feito';
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- cria a tabela estoques
+CREATE TABLE lojas.estoques (
+    estoque_id                NUMERIC(38) NOT NULL,
+    loja_id                   NUMERIC(38) NOT NULL,
+    produto_id                NUMERIC(38) NOT NULL,
+    quantidade                NUMERIC(38) NOT NULL
+);
+
+-- comentarios sobre a tabela estoques
+COMMENT ON TABLE  lojas.estoques            IS 'esta tabela contém informações sobre o estoque dos produtos nas lojas';
+COMMENT ON COLUMN lojas.estoques.estoque_id IS 'nessa coluna se encontra o id do estoque';
+COMMENT ON COLUMN lojas.estoques.loja_id    IS 'nessa coluna se encontra o id da loja';
+COMMENT ON COLUMN lojas.estoques.produto_id IS 'nessa coluna se encontra o id do produto';
+COMMENT ON COLUMN lojas.estoques.quantidade IS 'quantidade de produtos disponíveis no estoque da loja';
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- cria a tabela envios
+CREATE TABLE lojas.envios (
+    envio_id                  NUMERIC(38)  NOT NULL,
+    loja_id                   NUMERIC(38)  NOT NULL,
+    cliente_id                NUMERIC(38)  NOT NULL,
+    endereco_entrega          VARCHAR(512) NOT NULL,
+    status                    VARCHAR(15)  NOT NULL
+);
+
+-- comentarios sobre a tabela envios
+COMMENT ON TABLE  lojas.envios                  IS 'nessa tabela se encontra informações sobre os envios das lojas';
+COMMENT ON COLUMN lojas.envios.envio_id         IS 'nessa coluna se encontra o id do envio';
+COMMENT ON COLUMN lojas.envios.loja_id          IS 'nessa coluna se encontra o id da loja';
+COMMENT ON COLUMN lojas.envios.cliente_id       IS 'nessa coluna se encontra o id do cliente';
+COMMENT ON COLUMN lojas.envios.endereco_entrega IS 'nessa coluna se encontra o endereço de entregue do envio';
+COMMENT ON COLUMN lojas.envios.status           IS 'nessa coluna se encontra o status do envio';
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- cria a tabela itens por pedido
+CREATE TABLE lojas.pedidos_itens (
+    pedido_id                 NUMERIC(38)   NOT NULL,
+    produto_id                NUMERIC(38)   NOT NULL, 
+    numero_da_linha           NUMERIC(38)   NOT NULL,
+    preco_unitario            NUMERIC(10,2) NOT NULL,
+    quantidade                NUMERIC(38)   NOT NULL,
+    envio_id                  NUMERIC(38)
+);
+
+-- comentarios sobre a tabela itens por pedido
+COMMENT ON TABLE  lojas.pedidos_itens                 IS 'nessa tabela relaciona os itens de cada pedido';
+COMMENT ON COLUMN lojas.pedidos_itens.pedido_id       IS 'nessa coluna se encontra o id do pedido';
+COMMENT ON COLUMN lojas.pedidos_itens.produto_id      IS 'nessa coluna se encontra o id do produto';
+COMMENT ON COLUMN lojas.pedidos_itens.numero_da_linha IS 'nessa coluna se encontra o número da linha que um pedido ocupa';
+COMMENT ON COLUMN lojas.pedidos_itens.preco_unitario  IS 'nessa coluna se encontra o preço unitário do pedido';
+COMMENT ON COLUMN lojas.pedidos_itens.quantidade      IS 'nessa coluna se ecnontra a quantidade que um pedido foi feito';
+COMMENT ON COLUMN lojas.pedidos_itens.envio_id        IS 'nessa coluna se encontra o id do envio';
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Definindo as pk e pfk das tabelas e criando a check constraints
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Tabela produtos
 
 /*
 Adiciona uma restrição de chave primária chamada produtos_pk na tabela lojas.produtos,
@@ -121,29 +277,10 @@ CHECK (
 )
 );
 
--- comentarios sobre a tabela produtos
-COMMENT ON TABLE  lojas.produtos IS 'nessa tabela se encontra informações sobre os produtos da loja';
-COMMENT ON COLUMN lojas.produtos.produto_id IS 'nessa coluna se encontra o id do produto';
-COMMENT ON COLUMN lojas.produtos.nome IS 'nessa coluna se encontra o nome do produto';
-COMMENT ON COLUMN lojas.produtos.preco_unitario IS 'nessa coluna se encontra o preço unitário do produto';
-COMMENT ON COLUMN lojas.produtos.detalhe IS 'nessa coluna se encontra os detalhes do produtor';
-COMMENT ON COLUMN lojas.produtos.imagem IS 'nessa coluna se encontra a imagem do produto';
-COMMENT ON COLUMN lojas.produtos.imagem_mime_type IS 'nessa coluna se encontra o mime type da imagem do produto';
-COMMENT ON COLUMN lojas.produtos.imagem_arquivo IS 'nessa coluna se encontra o arquivo da imagem do produto';
-COMMENT ON COLUMN lojas.produtos.imagem_charset IS 'nessa coluna se encontra o charset da imagem';
-COMMENT ON COLUMN lojas.produtos.imagem_ultima_atualizacao IS 'nessa coluna se encontra a última atualização da imagem do produto';
 
-------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- cria a tabela clientes
-CREATE TABLE lojas.clientes (
-    cliente_id                NUMERIC(38)  NOT NULL,
-    email                     VARCHAR(255) NOT NULL,
-    nome                      VARCHAR(255) NOT NULL,
-    telefone1                 VARCHAR(20),
-    telefone2                 VARCHAR(20),
-    telefone3                 VARCHAR(20)
-);
+-- Tabela clientes
 
 /* 
 Adiciona uma restrição de chave primária chamada clientes_pk na tabela lojas.clientes,
@@ -173,31 +310,9 @@ CHECK (
 );
 
 
--- comentarios sobre a tabela clientes
-COMMENT ON TABLE  lojas.clientes            IS 'nessa tabela se encontra as informações sobre os clientes da loja';
-COMMENT ON COLUMN lojas.clientes.cliente_id IS 'nessa coluna se encontra o id do cliente';
-COMMENT ON COLUMN lojas.clientes.email      IS 'nessa coluna se encontra o endereço de email do cliente';
-COMMENT ON COLUMN lojas.clientes.nome       IS 'nessa coluna se encontra o nome do cliente';
-COMMENT ON COLUMN lojas.clientes.telefone1  IS 'nessa coluna se encontra o telefone do cliente';
-COMMENT ON COLUMN lojas.clientes.telefone2  IS 'nessa coluna se encontra o segundo telefone do cliente caso o mesmo tenha';
-COMMENT ON COLUMN lojas.clientes.telefone3  IS 'nessa coluna se encontra o terceiro telefone do cliente caso o mesmo tenha';
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------
-
--- cria a tabela lojas
-CREATE TABLE lojas.lojas (
-    loja_id                   NUMERIC(38)  NOT NULL,
-    nome                      VARCHAR(255) NOT NULL,
-    endereco_web              VARCHAR(100),
-    endereco_fisico           VARCHAR(512),
-    latitude                  NUMERIC,
-    longitude                 NUMERIC,
-    logo                      BYTEA,
-    logo_mime_type            VARCHAR(512),
-    logo_arquivo              VARCHAR(512),
-    logo_charset              VARCHAR(512),
-    logo_ultima_atualizacao   DATE
-);
+-- Tabela lojas
 
 /*
 Adiciona uma restrição de chave primária chamada lojas_pk na tabela lojas.lojas,
@@ -228,7 +343,6 @@ CHECK (
     OR latitude IS NOT NULL AND longitude IS NOT NULL 
 );
 
-
 /* Adiciona uma restrição de verificação chamada logo_check na tabela lojas.lojas,
 garantindo que todas as colunas relacionadas ao logo sejam nulas ou preenchidas simultaneamente.
 Ou seja, se logo é nulo, todas as outras colunas relacionadas ao logo também devem ser nulas.
@@ -255,30 +369,9 @@ CHECK (
 );
 
 
--- comentarios sobre a tabela lojas
-COMMENT ON TABLE  lojas.lojas                         IS 'nessa tabela se encontra informações sobre as lojas';
-COMMENT ON COLUMN lojas.lojas.loja_id                 IS 'nessa coluna se encontra o id da loja';
-COMMENT ON COLUMN lojas.lojas.nome                    IS 'nessa coluna se encontra o nome da loja';
-COMMENT ON COLUMN lojas.lojas.endereco_web            IS 'nessa coluna se encontra o endereço web da loja';
-COMMENT ON COLUMN lojas.lojas.endereco_fisico         IS 'nessa coluna se encontra o endereço físico da loja';
-COMMENT ON COLUMN lojas.lojas.latitude                IS 'nessa coluna se encontra a latitude da loja';
-COMMENT ON COLUMN lojas.lojas.longitude               IS 'nessa coluna se encontra a longitude da loja';
-COMMENT ON COLUMN lojas.lojas.logo                    IS 'nessa coluna se encontra o logo da loja';
-COMMENT ON COLUMN lojas.lojas.logo_mime_type          IS 'nessa coluna se encontra mime type do logo da loja';
-COMMENT ON COLUMN lojas.lojas.logo_arquivo            IS 'nessa coluna se encontra a localização do arquivo de logo da loja';
-COMMENT ON COLUMN lojas.lojas.logo_charset            IS 'nessa coluna se encontra o conjunto de caracteres utilizado no arquivo de logo da loja';
-COMMENT ON COLUMN lojas.lojas.logo_ultima_atualizacao IS 'nessa coluna se encontra a data da última atualização do arquivo de logo da loja';
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------
-
--- cria a tabela pedidos
-CREATE TABLE lojas.pedidos (
-    pedido_id                 NUMERIC(38) NOT NULL,
-    data_hora                 TIMESTAMP   NOT NULL,
-    cliente_id                NUMERIC(38) NOT NULL,
-    status                    VARCHAR(15) NOT NULL,
-    loja_id                   NUMERIC(38) NOT NULL
-);
+--Tabela pedidos
 
 /*
 Adiciona uma restrição de chave primária chamada pedidos_pk na tabela lojas.pedidos,
@@ -319,24 +412,9 @@ CHECK (status IN ('enviado', 'cancelado', 'pago')
 );
 
 
--- comentarios sobre a tabela pedidos
-COMMENT ON TABLE  lojas.pedidos            IS 'esta tabela contém informações sobre os pedidos realizados';
-COMMENT ON COLUMN lojas.pedidos.pedido_id  IS 'nessa coluna se encontra o id do pedido';
-COMMENT ON COLUMN lojas.pedidos.data_hora  IS 'nessa coluna se encontra a data e a hora que o pedido foi realizado';
-COMMENT ON COLUMN lojas.pedidos.cliente_id IS 'nessa coluna se encontra o id do cliente que fez o pedido';
-COMMENT ON COLUMN lojas.pedidos.status     IS 'nessa coluna se encontra o status do pedido';
-COMMENT ON COLUMN lojas.pedidos.loja_id    IS 'nessa coluna se encontra o id da loja que o pedido foi feito';
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------
-
--- cria a tabela estoques
-CREATE TABLE lojas.estoques (
-    estoque_id                NUMERIC(38) NOT NULL,
-    loja_id                   NUMERIC(38) NOT NULL,
-    produto_id                NUMERIC(38) NOT NULL,
-    quantidade                NUMERIC(38) NOT NULL
-);
-
+-- Tabela estoques
 
 /* 
 Adiciona uma restrição de chave primária chamada estoques_pk na tabela lojas.estoques,
@@ -377,23 +455,9 @@ CHECK (quantidade > 0)
 ;
 
 
--- comentarios sobre a tabela estoques
-COMMENT ON TABLE  lojas.estoques            IS 'esta tabela contém informações sobre o estoque dos produtos nas lojas';
-COMMENT ON COLUMN lojas.estoques.estoque_id IS 'nessa coluna se encontra o id do estoque';
-COMMENT ON COLUMN lojas.estoques.loja_id    IS 'nessa coluna se encontra o id da loja';
-COMMENT ON COLUMN lojas.estoques.produto_id IS 'nessa coluna se encontra o id do produto';
-COMMENT ON COLUMN lojas.estoques.quantidade IS 'quantidade de produtos disponíveis no estoque da loja';
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------
-
--- cria a tabela envios
-CREATE TABLE lojas.envios (
-    envio_id                  NUMERIC(38)  NOT NULL,
-    loja_id                   NUMERIC(38)  NOT NULL,
-    cliente_id                NUMERIC(38)  NOT NULL,
-    endereco_entrega          VARCHAR(512) NOT NULL,
-    status                    VARCHAR(15)  NOT NULL
-);
+-- Tabela envios
 
 /* 
 Adiciona uma restrição de chave primária chamada envios_pk na tabela lojas.envios,
@@ -434,26 +498,9 @@ CHECK (status IN ('ENVIADO', 'ENTREGUE')
 );
 
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- comentarios sobre a tabela envios
-COMMENT ON TABLE  lojas.envios                  IS 'nessa tabela se encontra informações sobre os envios das lojas';
-COMMENT ON COLUMN lojas.envios.envio_id         IS 'nessa coluna se encontra o id do envio';
-COMMENT ON COLUMN lojas.envios.loja_id          IS 'nessa coluna se encontra o id da loja';
-COMMENT ON COLUMN lojas.envios.cliente_id       IS 'nessa coluna se encontra o id do cliente';
-COMMENT ON COLUMN lojas.envios.endereco_entrega IS 'nessa coluna se encontra o endereço de entregue do envio';
-COMMENT ON COLUMN lojas.envios.status           IS 'nessa coluna se encontra o status do envio';
-
-------------------------------------------------------------------------------------------------------------------------
-
--- cria a tabela itens por pedido
-CREATE TABLE lojas.pedidos_itens (
-    pedido_id                 NUMERIC(38)   NOT NULL,
-    produto_id                NUMERIC(38)   NOT NULL, 
-    numero_da_linha           NUMERIC(38)   NOT NULL,
-    preco_unitario            NUMERIC(10,2) NOT NULL,
-    quantidade                NUMERIC(38)   NOT NULL,
-    envio_id                  NUMERIC(38)
-);
+-- Tabela pedidos_itens
 
 /* 
 Adiciona uma chave primária composta pelas colunas pedido_id e produto_id 
@@ -513,15 +560,7 @@ CHECK (preco_unitario >= 0)
 ;
 
 
--- comentarios sobre a tabela itens por pedido
-COMMENT ON TABLE  lojas.pedidos_itens                 IS 'nessa tabela relaciona os itens de cada pedido';
-COMMENT ON COLUMN lojas.pedidos_itens.pedido_id       IS 'nessa coluna se encontra o id do pedido';
-COMMENT ON COLUMN lojas.pedidos_itens.produto_id      IS 'nessa coluna se encontra o id do produto';
-COMMENT ON COLUMN lojas.pedidos_itens.numero_da_linha IS 'nessa coluna se encontra o número da linha que um pedido ocupa';
-COMMENT ON COLUMN lojas.pedidos_itens.preco_unitario  IS 'nessa coluna se encontra o preço unitário do pedido';
-COMMENT ON COLUMN lojas.pedidos_itens.quantidade      IS 'nessa coluna se ecnontra a quantidade que um pedido foi feito';
-COMMENT ON COLUMN lojas.pedidos_itens.envio_id        IS 'nessa coluna se encontra o id do envio';
-
+---------------------------------------------------------------------------------------------------------------------
 
 
 \dt lojas.*
